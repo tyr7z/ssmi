@@ -8,7 +8,7 @@
 static const std::string base64_chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
-    "0123456789+/";
+    "0123456789-_"; // + -> -, / -> _
 
 std::string base64_encode(const std::string& input)
 {

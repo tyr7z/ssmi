@@ -1,6 +1,6 @@
 @echo off
 
-set EXE=C:\Path\To\ssmi.exe
+set EXE=C:\Users\PC\Desktop\ssmi\build\ssmi.exe
 
 reg add "HKCU\Software\Classes\.ms" /ve /d "ssmi.msfile" /f
 
