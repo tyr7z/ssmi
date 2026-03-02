@@ -1,4 +1,4 @@
-$exePath = "C:\Path\To\ssmi.exe"
+$exePath = "C:\Users\PC\Desktop\ssmi\build\ssmi.exe"
 $progId  = "ssmi.msfile"
 
 New-Item -Path "HKCU:\Software\Classes\.ms" -Force | Out-Null
