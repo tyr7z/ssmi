@@ -1,10 +1,10 @@
 @echo off
 
-set EXE=C:\Users\PC\Desktop\ssmi\build\ssmi.exe
+set EXE=C:\tools\bin\ssmi.exe
 
 reg add "HKCU\Software\Classes\.ms" /ve /d "ssmi.msfile" /f
 
-reg add "HKCU\Software\Classes\ssmi.msfile" /ve /d "SSMI File" /f
+reg add "HKCU\Software\Classes\ssmi.msfile" /ve /d "MS File" /f
 
 reg add "HKCU\Software\Classes\ssmi.msfile\DefaultIcon" /ve /d "\"%EXE%\",0" /f
 
