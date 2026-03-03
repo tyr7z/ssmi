@@ -1,60 +1,36 @@
 #include <windows.h>
-#include <cstdlib>
-// #include <print>
-#include <string>
 #include <fstream>
 #include <sstream>
+#include <string>
 
-static const std::string base64_chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz"
-    "0123456789-_"; // + -> -, / -> _
+#include <cppcodec/base64_url.hpp>
 
-std::string base64_encode(const std::string& input)
+void SystemOpenURL(const std::string& url)
 {
-    std::string output;
-    int val = 0;
-    int valb = -6;
-
-    for (unsigned char c : input)
-    {
-        val = (val << 8) + c;
-        valb += 8;
-        while (valb >= 0)
-        {
-            output.push_back(base64_chars[(val >> valb) & 0x3F]);
-            valb -= 6;
-        }
-    }
-
-    if (valb > -6)
-        output.push_back(base64_chars[((val << 8) >> (valb + 8)) & 0x3F]);
-
-    while (output.size() % 4)
-        output.push_back('=');
-
-    return output;
+    ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 }
-
-void SystemOpenURL(const std::string& url) { ShellExecuteA(nullptr, "open", url.c_str(), nullptr, nullptr, SW_SHOWNORMAL); }
 
 int main(int argc, char* argv[])
 {
     if (argc < 2)
         return 1;
-    std::string smi = "https://smi.rdizpa.dev/?b=";
 
-    std::ifstream in(argv[1]);
+    std::ifstream in(argv[1], std::ios::binary);
     if (!in)
         return 1;
+
     std::ostringstream buffer;
     buffer << in.rdbuf();
-    in.close();
-    std::string encoded = base64_encode(buffer.str());
-    smi.append(encoded);
+
+    std::string encoded = cppcodec::base64_url::encode(buffer.str());
+
+    std::string smi = "https://smi.rdizpa.dev/?b=" + encoded;
 
     SystemOpenURL(smi);
     return 0;
 }
 
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) { return main(__argc, __argv); }
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+    return main(__argc, __argv);
+}

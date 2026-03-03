@@ -1,3 +1,7 @@
+```bash
+git clone --recurse-submodules git@github.com:tyr7z/ssmi.git
+cd ssmi
+
 mkdir build
 cd build
 
@@ -12,3 +16,4 @@ cmake -G Ninja -DCMAKE_C_COMPILER=gcc ..
 cmake -G Ninja -DCMAKE_C_COMPILER=clang ..
 
 ninja
+```
